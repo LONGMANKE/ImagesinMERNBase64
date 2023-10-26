@@ -4,7 +4,8 @@ const connect = require('./database/conn.js');
 const app = express();
 // app. use() function is used to mount the specified middleware function(s) at the path which is being specified
 // express. json() function is a middleware function used in Express. js applications to parse incoming JSON data from HTTP requests, a standard format for data transmission in web servers
-app.use(express.json())
+app.use(express.json());
+const port = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
     try {
@@ -17,13 +18,12 @@ app.get('/', (req, res) => {
 
 connect().then(() => {
     try {
-        app.listen(5000, () => {
-            console.log("Server is connected to port 5000");
+        app.listen(port, () => {
+            console.log(`Server is connected to http://localhost:${port}`);
         })
-    }
-    catch (error) {
+    }catch (error) { 
         console.log("Cannot connect to the server");
     }
-}).catch((error) => {
-    console.log("Invalid Database connection...!"+ error)
+}).catch((error) => { 
+    console.log("Invalid Database connection...!")
 })
